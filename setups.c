@@ -46,6 +46,5 @@ void    struct_init(t_ph **ph, pthread_t ***threads, t_rules **rules, char **av)
     *ph = malloc(sizeof(t_ph) * ft_atoi(av[1]));
     *rules = malloc(sizeof(t_rules));
     **rules = init_rules(av, ft_atoi(av[1]));
-    (*rules)->start = whattimeisit();
     return ;
 }
