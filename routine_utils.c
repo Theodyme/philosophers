@@ -127,8 +127,8 @@ int     a_eat(t_ph *ph)
         printf("%ld %d is eating\n", time_monitor(ph), ph->ph_id);
         ph->meals++;
         // printf("MEALS CAP: %d : %d /%d\n", ph->ph_id, ph->meals, ph->rules->cap);
-        meals_c(ph);
         waiting_f(ph->rules->t_eat, ph);
+        meals_c(ph);
         return 0;
 }
 
