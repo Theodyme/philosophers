@@ -61,6 +61,7 @@ void    unlock_f(t_ph *ph);
 int     ending_c(t_ph *ph, int ulock_f);
 int     meals_c(t_ph *ph);
 int     success_c(t_ph *ph, int ulock_f);
+int		end_flag_c(t_ph *ph);
 
 /*      linked list utilities      */
 t_list    *addback(t_list **list);

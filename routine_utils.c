@@ -1,5 +1,15 @@
 #include "philosophers.h"
 
+int		end_flag_c(t_ph *ph)
+{
+	int flag;
+
+    pthread_mutex_lock(&ph->rules->end_m);
+	flag = ph->rules->end;
+    pthread_mutex_unlock(&ph->rules->end_m);
+	return (flag);
+}
+
 int    ending_c(t_ph *ph, int ulock_f)
 {
         if (success_c(ph, ulock_f) == 1)
@@ -26,7 +36,7 @@ int    ending_c(t_ph *ph, int ulock_f)
             pthread_exit(EXIT_SUCCESS);
         }
         pthread_mutex_unlock(&ph->rules->end_m);
-        return 0;
+        return (0);
 }
 
 void    lock_f(t_ph *ph)
@@ -35,18 +45,20 @@ void    lock_f(t_ph *ph)
     {
         if (pthread_mutex_lock(&ph->fork->fork_m) == 0)
         {
-            printf("%ld %d PICKED HIS LEFT FORK\n", time_monitor(ph), ph->ph_id);
+			if (end_flag_c(ph) == 0)
+	            printf("%ld %d has taken a fork\n", time_monitor(ph), ph->ph_id);
             pthread_mutex_lock(&ph->fork->next->fork_m);
-            printf("%ld %d PICKED HIS RIGHT FORK\n", time_monitor(ph), ph->ph_id);
+			if (end_flag_c(ph) == 0)
+				printf("%ld %d has taken a fork\n", time_monitor(ph), ph->ph_id);
         }
     }
     else
     {
         if (pthread_mutex_lock(&ph->fork->next->fork_m) == 0)
         {
-            printf("%ld %d PICKED HIS RIGHT FORK\n", time_monitor(ph), ph->ph_id);
+            // printf("%ld %d PICKED HIS RIGHT FORK\n", time_monitor(ph), ph->ph_id);
             pthread_mutex_lock(&ph->fork->fork_m);
-            printf("%ld %d PICKED HIS LEFT FORK\n", time_monitor(ph), ph->ph_id);
+            // printf("%ld %d PICKED HIS LEFT FORK\n", time_monitor(ph), ph->ph_id);
         }
     }
     return ;
@@ -67,15 +79,6 @@ void    unlock_f(t_ph *ph)
     return ;
 }
 
-int     end_check(t_ph *ph)
-{
-    pthread_mutex_lock(&ph->rules->end_m);
-    if (ph->rules->end != 0)
-        return 1;
-    else
-        return 0;
-    pthread_mutex_unlock(&ph->rules->end_m);
-}
 
 int     success_c(t_ph *ph, int ulock_f)
 {
@@ -88,10 +91,7 @@ int     success_c(t_ph *ph, int ulock_f)
             unlock_f(ph);
         // printf("ending simulation here for %d: time: %ld, end flag: %d, success flag: %d with %d/%d meals.\n", ph->ph_id, (time_monitor(ph) - ph->last_meal), ph->rules->end, success_c(ph), ph->meals, ph->rules->cap);
         if (ph->rules->end != 3)
-        {
             ph->rules->end = 3;
-            printf("%ld Everyone is full, now it's time to dance!\n", time_monitor(ph));
-        }
         pthread_mutex_unlock(&ph->rules->end_m);
         return (1);
     }
@@ -120,7 +120,7 @@ int     a_sleep(t_ph *ph)
 
 int     a_eat(t_ph *ph)
 {
-        printf("%ld %d IS DOING ANOTHER CHECK BEFORE EATING. last meal = %ld, diff = %ld\n", time_monitor(ph), ph->ph_id, ph->last_meal, (time_monitor(ph) - ph->last_meal));
+        // printf("%ld %d IS DOING ANOTHER CHECK BEFORE EATING. last meal = %ld, diff = %ld\n", time_monitor(ph), ph->ph_id, ph->last_meal, (time_monitor(ph) - ph->last_meal));
         // printf("MEALS CAP: %d : %d /%d\n", ph->ph_id, ph->meals, ph->rules->cap);
         ending_c(ph, 1);
         ph->last_meal = time_monitor(ph);
@@ -129,6 +129,7 @@ int     a_eat(t_ph *ph)
         // printf("MEALS CAP: %d : %d /%d\n", ph->ph_id, ph->meals, ph->rules->cap);
         meals_c(ph);
         waiting_f(ph->rules->t_eat, ph);
+		printf("%ld %d JUST ATE %ld MILLISEC after %ld\n", time_monitor(ph), ph->ph_id, ph->rules->t_eat, ph->last_meal);
         return 0;
 }
 

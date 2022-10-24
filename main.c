@@ -78,6 +78,8 @@ int main(int ac, char **av)
             printf("le thread %d n'a pas voulu mourir correctement. :'(", (i + 1));
         i++;
     }
+	if (rules->success == 0)
+            printf("%ld Everyone is full, now it's time to dance!\n", time_monitor(ph + 1));
     destroy_list(list);
     return (0);
 }

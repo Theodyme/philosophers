@@ -11,7 +11,7 @@
         return (-1);
     }
     ms = (timestruct.tv_sec * 1000) + (timestruct.tv_usec / 1000);
-    return (ms); 
+    return (ms);
 }
 
 long int    time_monitor(t_ph *ph)
@@ -26,7 +26,9 @@ void    waiting(long int time, t_ph *ph)
     dest = whattimeisit() + time;
     while (whattimeisit() < dest)
     {
-        ending_c(ph, 0);
+		if (end_flag_c(ph) !=0)
+			return ;
+        // ending_c(ph, 0);
         usleep(100);
     }
     return ;
