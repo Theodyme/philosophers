@@ -23,32 +23,32 @@ void    *philosopher(void *arg)
     {
         waiting(ph->rules->t_death, ph);
         printf("%ld %d died\n", time_monitor(ph), ph->ph_id);
-        pthread_exit(EXIT_SUCCESS);
+		return (NULL);
     }
     pthread_mutex_lock(&ph->rules->start_m);
     ph->rules->start = whattimeisit();
     pthread_mutex_unlock(&ph->rules->start_m);
-    // printf("START = %ld, time monitor = %ld, NOW - START = %ld\n", ph->rules->start, time_monitor(ph), (whattimeisit() - ph->rules->start));
     ph->last_meal = time_monitor(ph);
     if (ph->ph_id % 2 != 0)
         waiting(ph->rules->t_eat, ph);
-    // printf("%ld --> [%d]\n", time_monitor(ph), ph->ph_id);
     pthread_mutex_lock(&ph->rules->end_m);
     while (ph->rules->end == 0)
     {
         pthread_mutex_unlock(&ph->rules->end_m);
-        ending_c(ph, 0);
-        lock_f(ph);
-        // ending_c(ph, 1);
-        a_eat(ph);
+        if (ending_c(ph, 0) == 1)
+			return (NULL);
+	    lock_f(ph);
+        if (a_eat(ph) == 1)
+			return (NULL);
         unlock_f(ph);
         a_sleep(ph);
         a_think(ph);
-        ending_c(ph, 0);
+        if (ending_c(ph, 0) == 1)
+			return (NULL);
         pthread_mutex_lock(&ph->rules->end_m);
     }
     pthread_mutex_unlock(&ph->rules->end_m);
-    pthread_exit(EXIT_SUCCESS);
+	return (NULL);
 }
 
 int main(int ac, char **av)

@@ -17,6 +17,7 @@ SRCS	=	ft_atoi.c \
 			routine_utils.c \
 			time_utils.c \
 			setups.c \
+			ending.c \
 			main.c
 OBJ		=	${SRCS:.c=.o}
 HEADER	=   philosophers.h

@@ -49,7 +49,7 @@ void    struct_init(t_ph **ph, pthread_t ***threads, t_rules **rules, char **av)
 long int    time_monitor(t_ph *ph);
 long int    whattimeisit(void);
 void        waiting(long int time, t_ph *ph);
-void        waiting_f(long int time, t_ph *ph);
+int        waiting_f(long int time, t_ph *ph);
 
 
 /*      routine utilities          */
@@ -62,6 +62,7 @@ int     ending_c(t_ph *ph, int ulock_f);
 int     meals_c(t_ph *ph);
 int     success_c(t_ph *ph, int ulock_f);
 int		end_flag_c(t_ph *ph);
+void		starve_c(t_ph *ph);
 
 /*      linked list utilities      */
 t_list    *addback(t_list **list);
