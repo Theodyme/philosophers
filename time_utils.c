@@ -1,50 +1,60 @@
- #include "philosophers.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   time_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/16 12:51:34 by flplace           #+#    #+#             */
+/*   Updated: 2022/12/16 16:34:55 by flplace          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
- long int    whattimeisit(void)
+#include "philosophers.h"
+
+long int	unix_timestamp(void)
 {
-    long int    ms;
-    struct timeval  timestruct;
+	long int		ms;
+	struct timeval	timestruct;
 
-    if (gettimeofday(&timestruct, NULL) == -1)
-    {
-        printf("Couldn't get time of day.\n");
-        return (-1);
-    }
-    ms = (timestruct.tv_sec * 1000) + (timestruct.tv_usec / 1000);
-    return (ms);
+	if (gettimeofday(&timestruct, NULL) == -1)
+	{
+		printf("Couldn't get time of day.\n");
+		return (-1);
+	}
+	ms = (timestruct.tv_sec * 1000) + (timestruct.tv_usec / 1000);
+	return (ms);
 }
 
-long int    time_monitor(t_ph *ph)
+long int	timestamp(t_ph *ph)
 {
-    return (whattimeisit() - ph->rules->start);
+	return (unix_timestamp() - ph->rules->start);
 }
 
-void    waiting(long int time, t_ph *ph)
+void	nwait(long int time, t_ph *ph)
 {
-    long int dest;
+	long int	dest;
 
-    dest = whattimeisit() + time;
-    while (whattimeisit() < dest)
-    {
-        if (ending_c(ph, 0) == 1)
+	dest = unix_timestamp() + time;
+	while (unix_timestamp() < dest)
+	{
+		if (ending_c(ph, 0) == 1)
 			return ;
-        // ending_c(ph, 0);
-        usleep(100);
-    }
-    return ;
+		usleep(100);
+	}
+	return ;
 }
 
-int    waiting_f(long int time, t_ph *ph)
+int	nwait_f(long int time, t_ph *ph)
 {
-    long int dest;
+	long int	dest;
 
-    dest = whattimeisit() + time;
-	// printf("checking waiting_f...\n");
-    while (whattimeisit() < dest)
-    {
-        if (ending_c(ph, 1) == 1)
+	dest = unix_timestamp() + time;
+	while (unix_timestamp() < dest)
+	{
+		if (ending_c(ph, 1) == 1)
 			return (1);
-        usleep(100);
-    }
-    return (0);
+		usleep(100);
+	}
+	return (0);
 }

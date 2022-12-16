@@ -1,67 +1,60 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   list_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/16 12:51:57 by flplace           #+#    #+#             */
+/*   Updated: 2022/12/16 12:52:14 by flplace          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
-void  listprinter(t_list *list)
+t_list	*find_last(t_list *list)
 {
-    t_list *visiting;
-    int i;
+	t_list	*last;
 
-    i = 1;
-    printf("Welcome to listprinter!\n");
-    printf("visiting node #%d : address %p\nvisiting next : %p\n", i, list, list->next);
-    i++;
-    visiting = list->next;
-    while (visiting != list)
-    {
-        printf("visiting node #%d : address %p\nvisiting next : %p\n", i, visiting, visiting->next);
-        i++;
-        visiting = visiting->next;
-    }
-    return ;
+	last = list;
+	while (last->next != list)
+		last = last->next;
+	return (last);
 }
 
-t_list    *find_last(t_list *list)
+t_list	*addback(t_list **cutlery)
 {
-    t_list *last;
+	t_list	*node;
+	t_list	*last;
 
-    last = list;
-    while (last->next != list)
-        last = last->next;
-    return (last);
+	node = (t_list *)malloc(sizeof(t_list));
+	pthread_mutex_init(&(node->fork_m), NULL);
+	if (!(*cutlery))
+	{
+		node->next = node;
+		*cutlery = node;
+		return (node);
+	}
+	last = find_last(*cutlery);
+	last->next = node;
+	node->next = *cutlery;
+	return (node);
 }
 
-t_list    *addback(t_list **cutlery)
+void	destroy_list(t_list *cutlery)
 {
-    t_list *node;
-    t_list *last;
+	t_list	*last;
+	t_list	*tmp;
 
-    node = (t_list *)malloc(sizeof(t_list));
-    pthread_mutex_init(&(node->fork_m), NULL);
-    if (!(*cutlery))
-    {
-        node->next = node;
-        *cutlery = node;
-        return (node);
-    }
-    last = find_last(*cutlery);
-    last->next = node;
-    node->next = *cutlery;
-    return (node);
-}
-
-void    destroy_list(t_list *cutlery)
-{
-    t_list *last;
-    t_list *tmp;
-
-    last = find_last(cutlery);
-    while (cutlery != last)
-    {
-        pthread_mutex_destroy(&(cutlery->fork_m));
-        tmp = cutlery;
-        cutlery = cutlery->next;
-        free(tmp);
-    }
-    pthread_mutex_destroy(&(cutlery->fork_m));
-    free(cutlery);
-    return ;
+	last = find_last(cutlery);
+	while (cutlery != last)
+	{
+		pthread_mutex_destroy(&(cutlery->fork_m));
+		tmp = cutlery;
+		cutlery = cutlery->next;
+		free(tmp);
+	}
+	pthread_mutex_destroy(&(cutlery->fork_m));
+	free(cutlery);
+	return ;
 }

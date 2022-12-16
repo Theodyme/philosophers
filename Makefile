@@ -11,9 +11,7 @@ END_COLOR	:= \033[0;39m
 # VARIABLES
 
 SRCS	=	ft_atoi.c \
-			clean_utils.c \
 			list_utils.c \
-			struct_utils.c \
 			routine_utils.c \
 			time_utils.c \
 			setups.c \
