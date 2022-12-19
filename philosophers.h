@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 12:52:23 by flplace           #+#    #+#             */
-/*   Updated: 2022/12/16 16:54:35 by flplace          ###   ########.fr       */
+/*   Updated: 2022/12/19 16:15:07 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void		nwait(long int time, t_ph *ph);
 int			nwait_f(long int time, t_ph *ph);
 
 /*      routine utilities          */
+void		routine(t_ph *ph);
 int			a_sleep(t_ph *ph);
 int			a_eat(t_ph *ph);
 int			a_think(t_ph *ph);
@@ -71,6 +72,7 @@ void		lock_f(t_ph *ph);
 void		unlock_f(t_ph *ph);
 
 /*		ending utilities			*/
+void		ending_threads(int nphilo, pthread_t **threads);
 int			ending_c(t_ph *ph, int ulock_f);
 int			meals_c(t_ph *ph);
 int			hunger_check(t_ph *ph, int ulock_f);
