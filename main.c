@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 12:51:18 by flplace           #+#    #+#             */
-/*   Updated: 2022/12/19 16:16:01 by flplace          ###   ########.fr       */
+/*   Updated: 2022/12/19 18:06:11 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,14 @@ void	*philosopher(void *arg)
 	return (NULL);
 }
 
-void	ending_threads(int nphilo, pthread_t **threads)
+void	ending_threads(int nphilo, t_ph *ph)
 {
 	int	i;
 
 	i = 0;
 	while (i != nphilo)
 	{
-		if (pthread_join(*threads[i], NULL) == 1)
+		if (pthread_join((ph + i)->thread, NULL) == 1)
 			printf("le thread %d s'est termine de facon inattendue.", (i + 1));
 		i++;
 	}
@@ -85,7 +85,6 @@ void	ending_threads(int nphilo, pthread_t **threads)
 
 int	main(int ac, char **av)
 {
-	pthread_t	**threads;
 	t_list		*list;
 	t_rules		*rules;
 	t_ph		*ph;
@@ -94,13 +93,14 @@ int	main(int ac, char **av)
 	i = -1;
 	if (ac < 5 || ac > 6)
 		return (0);
-	struct_init(&ph, &threads, &rules, av);
+	ph = NULL;
+	struct_init(&ph, &rules, av);
 	ph_init(ph, &list, ft_atoi(av[1]), rules);
 	pthread_mutex_lock(&rules->start_m);
 	while (++i != ft_atoi(av[1]))
-		pthread_create(threads[i], NULL, philosopher, (ph + i));
+		pthread_create(&(ph + i)->thread, NULL, philosopher, (ph + i));
 	pthread_mutex_unlock(&rules->start_m);
-	ending_threads(ft_atoi(av[1]), threads);
+	ending_threads(ft_atoi(av[1]), ph);
 	if (rules->hungry_ppl == 0)
 		printf("%ld Everyone is full, now it's time to dance!\n",
 			timestamp(ph + 1));
