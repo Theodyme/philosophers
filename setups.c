@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 12:51:47 by flplace           #+#    #+#             */
-/*   Updated: 2022/12/19 16:09:50 by flplace          ###   ########.fr       */
+/*   Updated: 2022/12/20 14:37:03 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,21 @@ void	struct_init(t_ph **ph, pthread_t ***threads, t_rules **rules, char **av)
 	*rules = malloc(sizeof(t_rules));
 	**rules = init_rules(av, ft_atoi(av[1]));
 	(*rules)->start = unix_timestamp();
+	return ;
+}
+
+void	s_cleaner(t_ph **ph, pthread_t ***threads, t_rules **rules, char **av)
+{
+	int	i;
+
+	i = 0;
+	while (i != ft_atoi(av[1]))
+	{
+		free((*threads)[i]);
+		i++;
+	}
+	free(*threads);
+	free(*ph);
+	free(*rules);
 	return ;
 }

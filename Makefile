@@ -31,7 +31,7 @@ CFLAGS	=	-Wall -Wextra -Werror -O0
 	@echo "$(BLUE)Compiling $<...$(END_COLOR)"
 
 $(NAME):	${OBJ} Makefile
-	@$(CC) -fsanitize=thread -g $(CFLAGS) $(OBJ) -o $(NAME) -lpthread
+	@$(CC) -g $(CFLAGS) $(OBJ) -o $(NAME) -lpthread
 	@echo "$(GREEN)Compiled $(NAME) :)$(END_COLOR)"
 
 all:	${NAME}

@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 12:52:23 by flplace           #+#    #+#             */
-/*   Updated: 2022/12/19 16:15:07 by flplace          ###   ########.fr       */
+/*   Updated: 2022/12/20 14:37:03 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ typedef struct s_ph
 void		ph_init(t_ph *ph, t_list **list, int nph, t_rules *rules);
 t_rules		init_rules(char **av, int nph);
 void		struct_init(t_ph **ph, pthread_t ***threads,
+				t_rules **rules, char **av);
+void		s_cleaner(t_ph **ph, pthread_t ***threads,
 				t_rules **rules, char **av);
 
 /*      time utilities             */

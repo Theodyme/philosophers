@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 12:51:18 by flplace           #+#    #+#             */
-/*   Updated: 2022/12/19 16:16:01 by flplace          ###   ########.fr       */
+/*   Updated: 2022/12/20 14:37:03 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int	main(int ac, char **av)
 	i = -1;
 	if (ac < 5 || ac > 6)
 		return (0);
+	list = NULL;
 	struct_init(&ph, &threads, &rules, av);
 	ph_init(ph, &list, ft_atoi(av[1]), rules);
 	pthread_mutex_lock(&rules->start_m);
@@ -105,5 +106,6 @@ int	main(int ac, char **av)
 		printf("%ld Everyone is full, now it's time to dance!\n",
 			timestamp(ph + 1));
 	destroy_list(list);
+	s_cleaner(&ph, &threads, &rules, av);
 	return (0);
 }
