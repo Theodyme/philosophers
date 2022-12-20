@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 12:52:23 by flplace           #+#    #+#             */
-/*   Updated: 2022/12/19 18:05:29 by flplace          ###   ########.fr       */
+/*   Updated: 2022/12/19 16:15:07 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ typedef struct s_rules
 
 typedef struct s_ph
 {
-	pthread_t		thread;
 	t_list			*fork;
 	int				ph_id;
 	int				meals;
@@ -55,7 +54,8 @@ typedef struct s_ph
 // /*      setup           */
 void		ph_init(t_ph *ph, t_list **list, int nph, t_rules *rules);
 t_rules		init_rules(char **av, int nph);
-void		struct_init(t_ph **ph, t_rules **rules, char **av);
+void		struct_init(t_ph **ph, pthread_t ***threads,
+				t_rules **rules, char **av);
 
 /*      time utilities             */
 long int	timestamp(t_ph *ph);
@@ -72,7 +72,7 @@ void		lock_f(t_ph *ph);
 void		unlock_f(t_ph *ph);
 
 /*		ending utilities			*/
-void		ending_threads(int nphilo, t_ph *ph);
+void		ending_threads(int nphilo, pthread_t **threads);
 int			ending_c(t_ph *ph, int ulock_f);
 int			meals_c(t_ph *ph);
 int			hunger_check(t_ph *ph, int ulock_f);
