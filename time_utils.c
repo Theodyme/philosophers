@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 12:51:34 by flplace           #+#    #+#             */
-/*   Updated: 2022/12/16 16:34:55 by flplace          ###   ########.fr       */
+/*   Updated: 2022/12/20 15:20:19 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,13 @@ int	nwait_f(long int time, t_ph *ph)
 		usleep(100);
 	}
 	return (0);
+}
+
+void	forkprinter(t_ph *ph)
+{
+	pthread_mutex_lock(&ph->rules->end_m);
+	if (ph->rules->end == 0)
+		printf("%ld %d has taken a fork\n", timestamp(ph), ph->ph_id);
+	pthread_mutex_unlock(&ph->rules->end_m);
+	return ;
 }

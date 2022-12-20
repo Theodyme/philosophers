@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 12:51:40 by flplace           #+#    #+#             */
-/*   Updated: 2022/12/16 18:54:08 by flplace          ###   ########.fr       */
+/*   Updated: 2022/12/20 15:21:44 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,19 @@ void	lock_f(t_ph *ph)
 	{
 		if (pthread_mutex_lock(&ph->fork->fork_m) == 0)
 		{
-			pthread_mutex_lock(&ph->rules->end_m);
-			if (ph->rules->end == 0)
-				printf("%ld %d has taken a fork\n", timestamp(ph), ph->ph_id);
-			pthread_mutex_unlock(&ph->rules->end_m);
+			forkprinter(ph);
 			pthread_mutex_lock(&ph->fork->next->fork_m);
-			pthread_mutex_lock(&ph->rules->end_m);
-			if (ph->rules->end == 0)
-				printf("%ld %d has taken a fork\n", timestamp(ph),
-					ph->ph_id);
-			pthread_mutex_unlock(&ph->rules->end_m);
+			forkprinter(ph);
 		}
 	}
 	else
 	{
 		if (pthread_mutex_lock(&ph->fork->next->fork_m) == 0)
+		{
+			forkprinter(ph);
 			pthread_mutex_lock(&ph->fork->fork_m);
+			forkprinter(ph);
+		}
 	}
 	return ;
 }
