@@ -11,10 +11,12 @@ END_COLOR	:= \033[0;39m
 # VARIABLES
 
 SRCS	=	ft_atoi.c \
+			ft_isdigit.c \
 			list_utils.c \
 			routine_utils.c \
 			time_utils.c \
 			setups.c \
+			arg_check.c \
 			ending.c \
 			main.c
 OBJ		=	${SRCS:.c=.o}

@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 12:52:23 by flplace           #+#    #+#             */
-/*   Updated: 2022/12/20 15:20:28 by flplace          ###   ########.fr       */
+/*   Updated: 2022/12/30 15:48:54 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,12 @@ typedef struct s_ph
 	t_rules			*rules;
 }				t_ph;
 
-// /*      setup           */
+/*		arg checker		*/
+int	cap_arg_check(t_ph **ph, pthread_t ***threads,
+				t_rules **rules, char **av, t_list *list);
+int			argchecker(int ac, char **av);
+
+/*      setup           */
 void		ph_init(t_ph *ph, t_list **list, int nph, t_rules *rules);
 t_rules		init_rules(char **av, int nph);
 void		struct_init(t_ph **ph, pthread_t ***threads,
@@ -89,6 +94,8 @@ void		destroy_list(t_list *list);
 
 /*      utilities                    */
 int			ft_strlen(char *str);
+int			ft_isdigit(int n);
+int			ft_strisdigit(char *str);
 int			ft_atoi(char *str);
 int			ft_is_numeric(char b);
 int			ft_is_operand(char b);
