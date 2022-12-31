@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 12:51:47 by flplace           #+#    #+#             */
-/*   Updated: 2022/12/30 15:44:35 by flplace          ###   ########.fr       */
+/*   Updated: 2022/12/31 07:17:34 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ph_init(t_ph *ph, t_list **list, int nph, t_rules *rules)
 	while (i != nph)
 	{
 		(ph + i)->meals = 0;
+		(ph + i)->last_meal = 0;
 		(ph + i)->ph_id = i + 1;
 		(ph + i)->rules = rules;
 		(ph + i)->fork = addback(&(*list));
