@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 12:51:18 by flplace           #+#    #+#             */
-/*   Updated: 2022/12/30 15:49:07 by flplace          ###   ########.fr       */
+/*   Updated: 2022/12/31 06:50:31 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,9 @@ int	main(int ac, char **av)
 		return (1);
 	list = NULL;
 	struct_init(&ph, &threads, &rules, av);
-	ph_init(ph, &list, ft_atoi(av[1]), rules);
-	if (cap_arg_check(&ph, &threads, &rules, av, list) == 1)
+	if (cap_arg_check(&ph, &threads, &rules, av) == 1)
 		return (1);
+	ph_init(ph, &list, ft_atoi(av[1]), rules);
 	pthread_mutex_lock(&rules->start_m);
 	while (++i != ft_atoi(av[1]))
 		pthread_create(threads[i], NULL, philosopher, (ph + i));

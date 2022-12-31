@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 12:52:23 by flplace           #+#    #+#             */
-/*   Updated: 2022/12/30 15:48:54 by flplace          ###   ########.fr       */
+/*   Updated: 2022/12/31 06:51:22 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ typedef struct s_ph
 }				t_ph;
 
 /*		arg checker		*/
-int	cap_arg_check(t_ph **ph, pthread_t ***threads,
-				t_rules **rules, char **av, t_list *list);
+int			cap_arg_check(t_ph **ph, pthread_t ***threads,
+				t_rules **rules, char **av);
 int			argchecker(int ac, char **av);
 
 /*      setup           */

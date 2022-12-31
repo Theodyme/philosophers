@@ -6,15 +6,15 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 15:45:09 by flplace           #+#    #+#             */
-/*   Updated: 2022/12/30 16:19:49 by flplace          ###   ########.fr       */
+/*   Updated: 2022/12/31 06:51:04 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int		argchecker(int ac, char **av)
+int	argchecker(int ac, char **av)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	if (ac < 5 || ac > 6)
@@ -44,7 +44,8 @@ int	ft_strisdigit(char *str)
 	return (1);
 }
 
-int	cap_arg_check(t_ph **ph, pthread_t ***threads, t_rules **rules, char **av, t_list *list)
+int	cap_arg_check(t_ph **ph, pthread_t ***threads,
+				t_rules **rules, char **av)
 {
 	if (ft_atoi(av[1]) == 0)
 	{
@@ -55,10 +56,8 @@ int	cap_arg_check(t_ph **ph, pthread_t ***threads, t_rules **rules, char **av, t
 	{
 		printf("%ld No one wants to eat. Everybody wants to dance!\n",
 			timestamp(*ph));
-		destroy_list(list);
 		s_cleaner(ph, threads, rules, av);
 		return (1);
 	}
 	return (0);
 }
-
