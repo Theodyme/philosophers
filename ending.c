@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 12:51:03 by flplace           #+#    #+#             */
-/*   Updated: 2022/12/31 07:19:01 by flplace          ###   ########.fr       */
+/*   Updated: 2022/12/31 07:28:58 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	end_flag_c(t_ph *ph)
 
 void	starve_c(t_ph *ph)
 {
-	if (((timestamp(ph) - ph->last_meal) > ph->rules->t_death))
+	if (((timestamp(ph) - ph->last_meal) >= ph->rules->t_death))
 	{
 		pthread_mutex_lock(&ph->rules->end_m);
 		if (ph->rules->end != 3)
