@@ -10,17 +10,17 @@ END_COLOR	:= \033[0;39m
 # **************************************************************************** #
 # VARIABLES
 
-SRCS	=	ft_atoi.c \
-			ft_isdigit.c \
-			list_utils.c \
-			routine_utils.c \
-			time_utils.c \
-			setups.c \
-			arg_check.c \
-			ending.c \
-			main.c
+SRCS	=	src/ft_atoi.c \
+			src/ft_isdigit.c \
+			src/list_utils.c \
+			src/routine_utils.c \
+			src/time_utils.c \
+			src/setups.c \
+			src/arg_check.c \
+			src/ending.c \
+			src/main.c
 OBJ		=	${SRCS:.c=.o}
-HEADER	=   philosophers.h
+HEADER	=   include/philosophers.h
 NAME	=	philo
 CC		=	cc
 CFLAGS	=	-Wall -Wextra -Werror -O0
