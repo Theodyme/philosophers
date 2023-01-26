@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 12:51:34 by flplace           #+#    #+#             */
-/*   Updated: 2023/01/26 19:39:21 by flplace          ###   ########.fr       */
+/*   Updated: 2023/01/26 19:42:26 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,16 @@ long int	timestamp(t_ph *ph)
 void	nwait(long int time, t_ph *ph)
 {
 	long int	dest;
+	int i;
 
+	i = 0;
 	(void)ph;
 	dest = unix_timestamp() + time;
 	while (unix_timestamp() < dest)
 	{
-		// if (ending_c(ph, 0) == 1)
-		// 	return ;
+		if (i % 500)
+			if (ending_c(ph, 0) == 1)
+				return ;
 		usleep(500);
 	}
 	return ;
@@ -49,13 +52,16 @@ void	nwait(long int time, t_ph *ph)
 int	nwait_f(long int time, t_ph *ph)
 {
 	long int	dest;
+	int i;
 
+	i = 0;
 	(void)ph;
 	dest = unix_timestamp() + time;
 	while (unix_timestamp() < dest)
 	{
-		// if (ending_c(ph, 1) == 1)
-		// 	return (1);
+		if (i % 500)
+			if (ending_c(ph, 0) == 1)
+				return (1);
 		usleep(500);
 	}
 	return (0);
