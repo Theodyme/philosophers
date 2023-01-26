@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 12:52:23 by flplace           #+#    #+#             */
-/*   Updated: 2023/01/20 16:17:55 by flplace          ###   ########.fr       */
+/*   Updated: 2023/01/26 18:25:46 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 typedef struct s_list
 {
 	pthread_mutex_t	fork_m;
-	int				is_available;
 	struct s_list	*next;
 }				t_list;
 
@@ -70,7 +69,6 @@ long int	timestamp(t_ph *ph);
 long int	unix_timestamp(void);
 void		nwait(long int time, t_ph *ph);
 int			nwait_f(long int time, t_ph *ph);
-int			a_wait(t_ph *ph);
 
 /*      routine utilities          */
 void		routine(t_ph *ph);
@@ -82,7 +80,7 @@ void		unlock_f(t_ph *ph);
 void		forkprinter(t_ph *ph);
 
 /*		ending utilities			*/
-void		ending_threads(int nphilo, pthread_t **threads);
+void		ending_threads(int nphilo, pthread_t **threads, t_ph *ph);
 int			ending_c(t_ph *ph, int ulock_f);
 int			meals_c(t_ph *ph);
 int			hunger_check(t_ph *ph, int ulock_f);

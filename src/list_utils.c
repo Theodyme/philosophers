@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 12:51:57 by flplace           #+#    #+#             */
-/*   Updated: 2023/01/16 17:16:04 by flplace          ###   ########.fr       */
+/*   Updated: 2023/01/26 17:37:14 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ t_list	*addback(t_list **cutlery)
 
 	node = (t_list *)malloc(sizeof(t_list));
 	pthread_mutex_init(&(node->fork_m), NULL);
-	node->is_available = 1;
 	if (!(*cutlery))
 	{
 		node->next = node;

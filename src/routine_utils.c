@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 12:51:40 by flplace           #+#    #+#             */
-/*   Updated: 2023/01/25 15:54:27 by flplace          ###   ########.fr       */
+/*   Updated: 2023/01/26 17:36:29 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ void	lock_f(t_ph *ph)
 		if (pthread_mutex_lock(&ph->fork->fork_m) == 0)
 		{
 			forkprinter(ph);
-			ph->fork->is_available = 0;
 			pthread_mutex_lock(&ph->fork->next->fork_m);
-			ph->fork->next->is_available = 0;
 			forkprinter(ph);
 		}
 	}
@@ -29,10 +27,8 @@ void	lock_f(t_ph *ph)
 	{
 		if (pthread_mutex_lock(&ph->fork->next->fork_m) == 0)
 		{
-			ph->fork->next->is_available = 0;
 			forkprinter(ph);
 			pthread_mutex_lock(&ph->fork->fork_m);
-			ph->fork->is_available = 0;
 			forkprinter(ph);
 		}
 	}
@@ -43,16 +39,12 @@ void	unlock_f(t_ph *ph)
 {
 	if (ph->ph_id % 2 != 0)
 	{
-		ph->fork->is_available = 1;
 		pthread_mutex_unlock(&ph->fork->fork_m);
-		ph->fork->next->is_available = 1;
 		pthread_mutex_unlock(&ph->fork->next->fork_m);
 	}
 	else
 	{
-		ph->fork->next->is_available = 1;
 		pthread_mutex_unlock(&ph->fork->next->fork_m);
-		ph->fork->is_available = 1;
 		pthread_mutex_unlock(&ph->fork->fork_m);
 	}
 	return ;
@@ -99,33 +91,5 @@ int	a_think(t_ph *ph)
 	if (ph->rules->end == 0)
 		printf("%ld %d is thinking\n", timestamp(ph), ph->ph_id);
 	pthread_mutex_unlock(&ph->rules->end_m);
-	// if (ph->rules->t_eat > ph->rules->t_sleep)
-	// 	nwait((ph->rules->t_eat - ph->rules->t_sleep), ph);
-	return (0);
-}
-
-int	a_wait(t_ph *ph)
-{
-	while (1)
-	{
-		if (ph->fork->is_available == 1 && ph->fork->next->is_available == 1)
-		{
-			lock_f(ph);
-			break ;
-		}
-		// printf("%ld %d is checking death value\n", timestamp(ph), ph->ph_id);
-		if (ending_c(ph, 0) == 1)
-			return (1);
-		usleep(10);
-	}
-	// else
-	// {
-	// 	while (ph->fork->next->is_available == 0)
-	// 	{
-	// 		if (ending_c(ph, 0) == 1)
-	// 			return (1);
-	// 		usleep(50);
-	// 	}
-	// }
 	return (0);
 }

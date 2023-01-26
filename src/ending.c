@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 12:51:03 by flplace           #+#    #+#             */
-/*   Updated: 2023/01/25 13:46:07 by flplace          ###   ########.fr       */
+/*   Updated: 2023/01/26 18:19:33 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int	ending_c(t_ph *ph, int ulock_f)
 {
 	ulock_f = hunger_check(ph, ulock_f);
 	starve_c(ph);
-	// printf("%ld %d is checking death value inside ending_c\n", timestamp(ph), ph->ph_id);
 	pthread_mutex_lock(&ph->rules->end_m);
 	if (ph->rules->end != 0)
 	{

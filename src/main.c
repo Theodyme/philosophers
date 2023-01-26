@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 12:51:18 by flplace           #+#    #+#             */
-/*   Updated: 2023/01/25 15:00:58 by flplace          ###   ########.fr       */
+/*   Updated: 2023/01/26 18:45:20 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,14 @@ void	routine(t_ph *ph)
 	while (ph->rules->end == 0)
 	{
 		pthread_mutex_unlock(&ph->rules->end_m);
-		a_wait(ph);
 		if (ending_c(ph, 0) == 1)
 			return ;
-		// lock_f(ph);
+		lock_f(ph);
 		if (a_eat(ph) == 1)
 			return ;
 		unlock_f(ph);
 		a_sleep(ph);
 		a_think(ph);
-		// if (ph->ph_id == 2)
-			// printf("%ld %d stuck here (after think and before end_c)\n", timestamp(ph), ph->ph_id);
 		if (ending_c(ph, 0) == 1)
 			return ;
 		pthread_mutex_lock(&ph->rules->end_m);
@@ -70,10 +67,28 @@ void	*philosopher(void *arg)
 	return (NULL);
 }
 
-void	ending_threads(int nphilo, pthread_t **threads)
+void	ending_threads(int nphilo, pthread_t **threads, t_ph *ph)
 {
 	int	i;
 
+	i = 0;
+	// (void)ph;
+	while (1)
+	{
+		printf("thread n %d\n", i);
+		if (((timestamp(ph + i) - (ph + i)->last_meal) > (ph + i)->rules->t_death))
+		{
+			printf("%ld %d died\n", timestamp(ph + i), (ph + i)->ph_id);
+			break;
+		}
+		printf("after if in ending_threads %d\n", i);
+		i++;
+		if (i > nphilo)
+		{
+			usleep(2000);
+			i = 0;
+		}
+	}
 	i = 0;
 	while (i != nphilo)
 	{
@@ -102,7 +117,7 @@ int	main(int ac, char **av)
 	while (++i != ft_atoi(av[1]))
 		pthread_create(threads[i], NULL, philosopher, (ph + i));
 	pthread_mutex_unlock(&rules->start_m);
-	ending_threads(ft_atoi(av[1]), threads);
+	ending_threads(ft_atoi(av[1]), threads, ph);
 	if (rules->hungry_ppl == 0)
 		printf("%ld Everyone is full, now it's time to dance!\n",
 			timestamp(ph + 1));
