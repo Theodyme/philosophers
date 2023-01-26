@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 12:51:18 by flplace           #+#    #+#             */
-/*   Updated: 2023/01/26 19:08:40 by flplace          ###   ########.fr       */
+/*   Updated: 2023/01/26 19:13:46 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	ending_threads(int nphilo, pthread_t **threads, t_ph *ph)
 		i++;
 		if (i >= nphilo)
 		{
-			usleep(500);
+			usleep(2000);
 			i = 0;
 		}
 	}
