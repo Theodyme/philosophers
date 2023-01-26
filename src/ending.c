@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 12:51:03 by flplace           #+#    #+#             */
-/*   Updated: 2023/01/26 18:19:33 by flplace          ###   ########.fr       */
+/*   Updated: 2023/01/26 19:08:42 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	ending_c(t_ph *ph, int ulock_f)
 		if (ph->rules->end == 1)
 		{
 			ph->rules->end = 3;
-			printf("%ld %d died\n", timestamp(ph), ph->ph_id);
+			// printf("%ld %d died\n", timestamp(ph), ph->ph_id);
 		}
 		pthread_mutex_unlock(&ph->rules->end_m);
 		return (1);
