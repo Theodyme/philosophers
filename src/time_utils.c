@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 12:51:34 by flplace           #+#    #+#             */
-/*   Updated: 2023/01/20 16:10:35 by flplace          ###   ########.fr       */
+/*   Updated: 2023/01/26 19:37:50 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	nwait(long int time, t_ph *ph)
 	{
 		if (ending_c(ph, 0) == 1)
 			return ;
-		usleep(100);
+		usleep(500);
 	}
 	return ;
 }
@@ -54,7 +54,7 @@ int	nwait_f(long int time, t_ph *ph)
 	{
 		if (ending_c(ph, 1) == 1)
 			return (1);
-		usleep(100);
+		usleep(500);
 	}
 	return (0);
 }
