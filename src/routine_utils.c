@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 12:51:40 by flplace           #+#    #+#             */
-/*   Updated: 2023/01/26 19:23:00 by flplace          ###   ########.fr       */
+/*   Updated: 2023/01/26 19:54:21 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	lock_f(t_ph *ph)
 {
-	if (ph->ph_id % 2 != 0)
+	if (ph->ph_id == 1)
 	{
 		if (pthread_mutex_lock(&ph->fork->fork_m) == 0)
 		{
@@ -37,7 +37,7 @@ void	lock_f(t_ph *ph)
 
 void	unlock_f(t_ph *ph)
 {
-	if (ph->ph_id % 2 != 0)
+	if (ph->ph_id == 0)
 	{
 		pthread_mutex_unlock(&ph->fork->fork_m);
 		pthread_mutex_unlock(&ph->fork->next->fork_m);
@@ -91,6 +91,6 @@ int	a_think(t_ph *ph)
 	if (ph->rules->end == 0)
 		printf("%ld %d is thinking\n", timestamp(ph), ph->ph_id);
 	pthread_mutex_unlock(&ph->rules->end_m);
-	nwait((ph->rules->t_eat - ph->rules->t_sleep), ph);
+	nwait((ph->rules->t_eat - ph->rules->t_sleep + 1), ph);
 	return (0);
 }
