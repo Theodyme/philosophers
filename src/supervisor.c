@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:40:23 by flplace           #+#    #+#             */
-/*   Updated: 2023/01/28 15:56:51 by flplace          ###   ########.fr       */
+/*   Updated: 2023/01/28 16:53:52 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,22 @@ void	ending_control(int nphilo, pthread_t **threads, t_ph *ph)
 	while (1)
 	{
 		if (((timestamp(ph + i) - (ph + i)->last_meal)
-				> (ph + i)->rules->t_death))
+				> (ph + i)->rules->t_death) || ph->rules->hungry_ppl == 0)
 		{
 			pthread_mutex_lock(&(ph + i)->rules->end_m);
-			if ((ph + i)->rules->hungry_ppl != 0)
-				printf("%ld %d died\n",
-					timestamp(ph + i), (ph + i)->ph_id);
+			if ((ph + i)->rules->hungry_ppl == 0)
+				printf("%ld Everyone is full, time to dance!\n",
+					timestamp(ph + 1));
+			else
+				printf("%ld %d died\n", timestamp(ph + i), (ph + i)->ph_id);
 			(ph + i)->rules->end = 3;
 			pthread_mutex_unlock(&(ph + i)->rules->end_m);
 			break ;
 		}
-		i++;
-		if (i >= nphilo)
-		{
+		if (++i >= nphilo)
 			usleep(2000);
+		if (++i >= nphilo)
 			i = 0;
-		}
 	}
 	ending_threads(nphilo, threads);
 	return ;

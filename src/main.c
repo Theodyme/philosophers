@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 12:51:18 by flplace           #+#    #+#             */
-/*   Updated: 2023/01/28 15:51:49 by flplace          ###   ########.fr       */
+/*   Updated: 2023/01/28 16:52:37 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,6 @@ int	main(int ac, char **av)
 		pthread_create(threads[i], NULL, philosopher, (ph + i));
 	pthread_mutex_unlock(&rules->start_m);
 	ending_control(ft_atoi(av[1]), threads, ph);
-	if (rules->hungry_ppl == 0)
-		printf("%ld Everyone is full, now it's time to dance!\n",
-			timestamp(ph + 1));
 	destroy_list(list);
 	s_cleaner(&ph, &threads, &rules, av);
 	return (0);
