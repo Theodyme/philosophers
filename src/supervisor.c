@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:40:23 by flplace           #+#    #+#             */
-/*   Updated: 2023/01/28 15:51:28 by flplace          ###   ########.fr       */
+/*   Updated: 2023/01/28 15:56:51 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ending_control(int nphilo, pthread_t **threads, t_ph *ph)
 		{
 			pthread_mutex_lock(&(ph + i)->rules->end_m);
 			if ((ph + i)->rules->hungry_ppl != 0)
-				printf("%ld %d died(outside)\n",
+				printf("%ld %d died\n",
 					timestamp(ph + i), (ph + i)->ph_id);
 			(ph + i)->rules->end = 3;
 			pthread_mutex_unlock(&(ph + i)->rules->end_m);
