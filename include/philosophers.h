@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 12:52:23 by flplace           #+#    #+#             */
-/*   Updated: 2023/01/28 18:04:58 by flplace          ###   ########.fr       */
+/*   Updated: 2023/01/28 18:15:20 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_ph
 	int				ph_id;
 	int				meals;
 	long int		last_meal;
+	pthread_mutex_t	last_meal_m;
 	t_rules			*rules;
 }				t_ph;
 
@@ -81,6 +82,7 @@ void		forkprinter(t_ph *ph);
 
 /*		supervisor					*/
 int			hunger_reader(t_ph *ph);
+int			lastmeal_reader(t_ph *ph, int i);
 void		ending_threads(int nphilo, pthread_t **threads);
 void		ending_control(int nphilo, pthread_t **threads, t_ph *ph);
 

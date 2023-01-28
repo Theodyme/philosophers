@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 12:51:47 by flplace           #+#    #+#             */
-/*   Updated: 2023/01/26 17:06:27 by flplace          ###   ########.fr       */
+/*   Updated: 2023/01/28 18:13:49 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,11 @@ void	ph_init(t_ph *ph, t_list **list, int nph, t_rules *rules)
 	i = 0;
 	while (i != nph)
 	{
+		pthread_mutex_init(&((ph + i)->last_meal_m), NULL);
 		(ph + i)->meals = 0;
+		pthread_mutex_lock(&ph->last_meal_m);
 		(ph + i)->last_meal = 0;
+		pthread_mutex_unlock(&ph->last_meal_m);
 		(ph + i)->ph_id = i + 1;
 		(ph + i)->rules = rules;
 		(ph + i)->fork = addback(&(*list));

@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:40:23 by flplace           #+#    #+#             */
-/*   Updated: 2023/01/28 18:05:13 by flplace          ###   ########.fr       */
+/*   Updated: 2023/01/28 18:45:52 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ending_threads(int nphilo, pthread_t **threads)
 	return ;
 }
 
-int		hunger_reader(t_ph *ph)
+int	hunger_reader(t_ph *ph)
 {
 	int	i;
 
@@ -37,14 +37,25 @@ int		hunger_reader(t_ph *ph)
 	return (i);
 }
 
+int	lastmeal_reader(t_ph *ph, int i)
+{
+	int	tmp;
+
+	tmp = 0;
+	pthread_mutex_lock(&(ph + i)->last_meal_m);
+	tmp = ph->last_meal;
+	pthread_mutex_unlock(&(ph + i)->last_meal_m);
+	return (tmp);
+}
+
 void	ending_control(int nphilo, pthread_t **threads, t_ph *ph)
 {
 	int	i;
 
 	i = 0;
-	while (1)
+	while (1 && nphilo != 1)
 	{
-		if (((timestamp(ph + i) - (ph + i)->last_meal)
+		if (((timestamp(ph + i) - lastmeal_reader(ph, i))
 				> (ph + i)->rules->t_death) || hunger_reader(ph) == 0)
 		{
 			pthread_mutex_lock(&(ph + i)->rules->end_m);

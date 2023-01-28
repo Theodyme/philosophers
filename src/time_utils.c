@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 12:51:34 by flplace           #+#    #+#             */
-/*   Updated: 2023/01/28 17:55:41 by flplace          ###   ########.fr       */
+/*   Updated: 2023/01/28 18:45:37 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ long int	unix_timestamp(void)
 long int	timestamp(t_ph *ph)
 {
 	long int	tmp;
+
 	pthread_mutex_lock(&ph->rules->start_m);
 	tmp = unix_timestamp() - ph->rules->start;
 	pthread_mutex_unlock(&ph->rules->start_m);

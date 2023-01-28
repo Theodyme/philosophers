@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 12:51:18 by flplace           #+#    #+#             */
-/*   Updated: 2023/01/28 17:55:42 by flplace          ###   ########.fr       */
+/*   Updated: 2023/01/28 18:42:38 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,15 @@ void	*philosopher(void *arg)
 	if (&(ph->fork->fork_m) == &(ph->fork->next->fork_m))
 	{
 		nwait(ph->rules->t_death, ph);
-		printf("%ld %d died\n", timestamp(ph), ph->ph_id);
+		printf("%ld 1 died\n", timestamp(ph));
 		return (NULL);
 	}
 	pthread_mutex_lock(&ph->rules->start_m);
 	ph->rules->start = unix_timestamp();
 	pthread_mutex_unlock(&ph->rules->start_m);
+	pthread_mutex_lock(&ph->last_meal_m);
 	ph->last_meal = timestamp(ph);
+	pthread_mutex_unlock(&ph->last_meal_m);
 	if (ph->ph_id % 2 != 0)
 		nwait(ph->rules->t_eat, ph);
 	routine(ph);
