@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 12:52:23 by flplace           #+#    #+#             */
-/*   Updated: 2023/01/28 15:29:05 by flplace          ###   ########.fr       */
+/*   Updated: 2023/01/28 15:50:19 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void		unlock_f(t_ph *ph);
 void		forkprinter(t_ph *ph);
 
 /*		supervisor					*/
-void		ending_threads(int nphilo, pthread_t **threads, t_ph *ph);
+void		ending_threads(int nphilo, pthread_t **threads);
 void		ending_control(int nphilo, pthread_t **threads, t_ph *ph);
 
 /*		ending utilities			*/

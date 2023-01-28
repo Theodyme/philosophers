@@ -6,13 +6,13 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:40:23 by flplace           #+#    #+#             */
-/*   Updated: 2023/01/28 15:42:40 by flplace          ###   ########.fr       */
+/*   Updated: 2023/01/28 15:51:28 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
 
-void	ending_threads(int nphilo, pthread_t **threads, t_ph *ph)
+void	ending_threads(int nphilo, pthread_t **threads)
 {
 	int	i;
 
@@ -51,6 +51,6 @@ void	ending_control(int nphilo, pthread_t **threads, t_ph *ph)
 			i = 0;
 		}
 	}
-	ending_threads(nphilo, threads, ph);
+	ending_threads(nphilo, threads);
 	return ;
 }
