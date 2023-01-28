@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 12:51:18 by flplace           #+#    #+#             */
-/*   Updated: 2023/01/28 19:36:32 by flplace          ###   ########.fr       */
+/*   Updated: 2023/01/28 20:38:10 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ void	routine(t_ph *ph)
 			return ;
 		unlock_f(ph);
 		a_sleep(ph);
-		if (ending_c(ph, 0) == 1)
-			return ;
 		a_think(ph);
 		if (ending_c(ph, 0) == 1)
 			return ;

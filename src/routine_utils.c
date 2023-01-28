@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 12:51:40 by flplace           #+#    #+#             */
-/*   Updated: 2023/01/28 19:18:53 by flplace          ###   ########.fr       */
+/*   Updated: 2023/01/28 20:24:43 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,9 @@ int	a_eat(t_ph *ph)
 	if (ending_c(ph, 1) == 1)
 		return (1);
 	printf("%ld %d is eating\n", timestamp(ph), ph->ph_id);
+	pthread_mutex_lock(&ph->last_meal_m);
 	ph->last_meal = timestamp(ph);
+	pthread_mutex_unlock(&ph->last_meal_m);
 	ph->meals++;
 	meals_c(ph);
 	if (nwait_f(ph->rules->t_eat, ph) == 1)

@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:40:23 by flplace           #+#    #+#             */
-/*   Updated: 2023/01/28 18:45:52 by flplace          ###   ########.fr       */
+/*   Updated: 2023/01/28 20:48:51 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ending_control(int nphilo, pthread_t **threads, t_ph *ph)
 				> (ph + i)->rules->t_death) || hunger_reader(ph) == 0)
 		{
 			pthread_mutex_lock(&(ph + i)->rules->end_m);
-			if ((ph + i)->rules->hungry_ppl == 0)
+			if (hunger_reader(ph + i) == 0)
 				printf("%ld Everyone is full, time to dance!\n",
 					timestamp(ph + 1));
 			else
