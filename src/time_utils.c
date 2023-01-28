@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 12:51:34 by flplace           #+#    #+#             */
-/*   Updated: 2023/01/26 19:42:26 by flplace          ###   ########.fr       */
+/*   Updated: 2023/01/28 15:39:06 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ long int	timestamp(t_ph *ph)
 void	nwait(long int time, t_ph *ph)
 {
 	long int	dest;
-	int i;
+	int			i;
 
 	i = 0;
 	(void)ph;
@@ -52,7 +52,7 @@ void	nwait(long int time, t_ph *ph)
 int	nwait_f(long int time, t_ph *ph)
 {
 	long int	dest;
-	int i;
+	int			i;
 
 	i = 0;
 	(void)ph;

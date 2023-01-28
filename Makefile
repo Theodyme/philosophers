@@ -18,6 +18,7 @@ SRCS	=	src/ft_atoi.c \
 			src/setups.c \
 			src/arg_check.c \
 			src/ending.c \
+			src/supervisor.c \
 			src/main.c
 OBJ		=	${SRCS:.c=.o}
 HEADER	=   include/philosophers.h
