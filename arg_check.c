@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 15:45:09 by flplace           #+#    #+#             */
-/*   Updated: 2023/01/31 20:42:59 by flplace          ###   ########.fr       */
+/*   Updated: 2023/01/31 21:48:31 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,14 @@ int	cap_arg_check(t_ph **ph,
 {
 	if (ft_atoi(av[1]) == 0)
 	{
-		s_cleaner(ph, rules, av);
+		s_cleaner(ph, rules);
 		return (1);
 	}
 	if (av[5] && ft_atoi(av[5]) == 0)
 	{
 		printf("%ld No one wants to eat. Everybody wants to dance!\n",
 			timestamp(*ph));
-		s_cleaner(ph, rules, av);
+		s_cleaner(ph, rules);
 		return (1);
 	}
 	return (0);

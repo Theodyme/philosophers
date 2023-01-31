@@ -6,7 +6,7 @@
 /*   By: flplace <flplace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:40:23 by flplace           #+#    #+#             */
-/*   Updated: 2023/01/31 20:42:38 by flplace          ###   ########.fr       */
+/*   Updated: 2023/01/31 22:04:03 by flplace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,17 @@ int	lastmeal_reader(t_ph *ph, int i)
 	return (tmp);
 }
 
+void	print_supervisor(t_ph *ph, int id, char *str, int flag)
+{
+	pthread_mutex_lock(&(ph)->rules->print_m);
+	printf("%ld ", timestamp(ph));
+	if (flag == 0)
+		printf("%d ", id);
+	printf("%s\n", str);
+	pthread_mutex_unlock(&(ph)->rules->print_m);
+	return ;
+}
+
 void	ending_control(int nphilo, t_ph *ph)
 {
 	int	i;
@@ -60,18 +71,10 @@ void	ending_control(int nphilo, t_ph *ph)
 		{
 			pthread_mutex_lock(&(ph + i)->rules->end_m);
 			if (hunger_reader(ph + i) == 0)
-			{
-				pthread_mutex_lock(&(ph + i)->rules->print_m);
-				printf("%ld Everyone is full, time to dance!\n",
-					timestamp(ph + 1));
-				pthread_mutex_unlock(&(ph + i)->rules->print_m);
-			}
+				print_supervisor((ph + i), (ph + i)->ph_id,
+					"Everyone is full, time to dance!", 1);
 			else
-			{
-				pthread_mutex_lock(&(ph + i)->rules->print_m);
-				printf("%ld %d died\n", timestamp(ph + i), (ph + i)->ph_id);
-				pthread_mutex_unlock(&(ph + i)->rules->print_m);
-			}
+				print_supervisor((ph + i), (ph + i)->ph_id, "died", 0);
 			(ph + i)->rules->end = 3;
 			pthread_mutex_unlock(&(ph + i)->rules->end_m);
 			break ;
